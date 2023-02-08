@@ -3,7 +3,7 @@ from django.contrib import admin
 
 models = apps.get_models('accounting')
 
-register_models = [ 'Accounting', 'Characteristic', 'Company',
+models_to_register = [ 'Accounting', 'Characteristic', 'Company',
                     'CompanyContact', 'EconomicActivity', 'Invitation',
                     'Membership', 'Organization', 'Purchase', 'Role', 'Sale',
                     'Subscription', 'Transaction', 'User', 'Stakeholder'
