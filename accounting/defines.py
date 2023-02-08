@@ -25,7 +25,7 @@ DOCUMENT_TYPE_CHOICES = (
         ('', 'pagares'),
     )
 
-TRANSACTION_TYPE_CHOICES = (
+TRANSACTION_TYPE_CHOICES = [
       ('', 'compra'),
       ('', 'venta')
-    )
+    ]

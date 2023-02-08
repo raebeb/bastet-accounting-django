@@ -6,7 +6,7 @@ class Stakeholder(models.Model):
 
     name = models.CharField(max_length=100)
     rut = models.CharField(max_length=20)
-    current_partnership = models.BooleanField(default=False)
+    current_partner = models.BooleanField(default=False)
     legal_representative = models.BooleanField(default=False)
     
     class Meta:
