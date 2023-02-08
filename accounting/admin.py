@@ -10,5 +10,5 @@ models_to_register = [ 'Accounting', 'Characteristic', 'Company',
                   ]
 
 for model in models:
-    if model.__name__ in register_models:
+    if model.__name__ in models_to_register:
       admin.site.register(model)
