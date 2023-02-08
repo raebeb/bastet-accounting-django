@@ -25,9 +25,10 @@ class Sale(Transaction):
     ticket_sales_national_transportation = models.DecimalField(max_digits=20, decimal_places=2) # Ventas de boletos de transporte nacional
     sale_of_international_transportation_tickets = models.DecimalField(max_digits=20, decimal_places=2) # Venta de boletos de transporte internacional
 
-    def __str__(self):
-        return self.folio
-
     class Meta:
         verbose_name = 'Sale'
         verbose_name_plural = 'Sales'
+    
+    def __str__(self):
+        # TODO: I dont know if must be number or folio
+        return f'{self.number} - {self.document_type}'

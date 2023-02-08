@@ -12,3 +12,6 @@ class CompanyContact(models.Model):
     class Meta:
       verbose_name = "Company Contact"
       verbose_name_plural = "Company Contacts"
+
+    def __str__(self):
+        return f"{self.name} - {self.phone_number}"

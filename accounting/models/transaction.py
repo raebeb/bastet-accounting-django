@@ -25,4 +25,3 @@ class Transaction(models.Model):
 
     class Meta:
         abstract = True
-

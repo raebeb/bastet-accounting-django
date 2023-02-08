@@ -12,3 +12,6 @@ class Stakeholder(models.Model):
     class Meta:
         verbose_name = 'Stakeholder'
         verbose_name_plural = 'Stakeholders'
+
+    def __str__(self):
+        return f'{self.name} - representative?: {self.legal_representative} - partner?: {self.current_partnership}'

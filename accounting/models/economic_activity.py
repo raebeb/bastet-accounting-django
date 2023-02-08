@@ -15,5 +15,5 @@ class EconomicActivity(models.Model):
         verbose_name = 'Economic Activity'
         verbose_name_plural = 'Economic Activities'
     
-
-# Obtener las actividades económicas de https://www.sii.cl/pagina/renta/suplemento2001/parte4/Listado_codigos.htm
+    def __str__(self):
+        return f'{self.code} - {self.name}'
