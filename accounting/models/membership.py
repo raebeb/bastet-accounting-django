@@ -2,8 +2,7 @@ from django.db import models
 from django_fsm import FSMField, transition
 
 from .user import User
-from .invitation import Invitation
-from ..defines import MEMBERSHIP_STATES, CREATED, PUBLISHED, HIDDEN, FINISHED, ACTIVE, INACTIVE, INVITED, REMOVED, SUSPENDED
+from accounting.constants.states import MEMBERSHIP_STATES, CREATED, ACTIVE, INACTIVE, INVITED, REMOVED, SUSPENDED
 
 
 class Membership(models.Model):

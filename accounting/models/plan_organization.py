@@ -1,8 +1,8 @@
 from django.db import models
-from django_fsm import FSMField, transition, State
+from django_fsm import FSMField, transition
 from .plan import Plan
 from .organization import Organization
-from ..defines import PLAN_ORGANIZATION_STATES, CREATED, ACTIVE, INACTIVE
+from accounting.constants.states import PLAN_ORGANIZATION_STATES, CREATED, ACTIVE, INACTIVE
 class PlanOrganization(models.Model):
     # Relations
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)

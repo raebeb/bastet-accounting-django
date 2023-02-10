@@ -3,7 +3,7 @@ from django_fsm import FSMField, transition
 
 from .user import User
 from .organization import Organization
-from ..defines import JOIN_REQUEST_STATES, CREATED, ACCEPTED, REJECTED
+from accounting.constants.states import JOIN_REQUEST_STATES, CREATED, ACCEPTED, REJECTED
 
 
 class JoinRequest(models.Model):

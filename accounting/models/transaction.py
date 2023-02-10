@@ -1,6 +1,6 @@
 from django.db import models
 from .accounting import Accounting
-from ..defines import DOCUMENT_TYPE_CHOICES, TRANSACTION_TYPE_CHOICES
+from accounting.constants.states import DOCUMENT_TYPE_CHOICES, TRANSACTION_TYPE_CHOICES
 
 class Transaction(models.Model):
     accounting = models.ForeignKey(Accounting, on_delete=models.CASCADE)

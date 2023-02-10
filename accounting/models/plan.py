@@ -1,6 +1,6 @@
 from djando.db import models
-from django_fsm import FSMField, transition, State
-from ..defines import PLAN_STATES, DRAFT, CREATED, PUBLISHED, HIDDEN, FINISHED
+from django_fsm import FSMField, transition
+from accounting.constants.states import PLAN_STATES, DRAFT, CREATED, PUBLISHED, HIDDEN, FINISHED
 
 class Plan(models.Model):
     # State machine

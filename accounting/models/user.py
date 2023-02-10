@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 from django_fsm import FSMField, transition
 from django.db import models
 
-from ..defines import USER_STATES, CREATED, VERIFIED, BANNED
+from accounting.constants.states import USER_STATES, CREATED, VERIFIED, BANNED
 
 class User(AbstractUser):
     # Relations
