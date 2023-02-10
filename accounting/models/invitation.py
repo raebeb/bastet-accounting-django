@@ -2,6 +2,9 @@ from django.db import models
 
 
 class Invitation(models.Model):
+    """
+    Invitation model
+    """
     uuid = models.UUIDField()
     email = models.EmailField()
     created_at = models.DateField(
@@ -16,4 +19,4 @@ class Invitation(models.Model):
         verbose_name_plural = "Invitations"
 
     def __str__(self):
-        pass
+        return f'Invitation for {self.email}'

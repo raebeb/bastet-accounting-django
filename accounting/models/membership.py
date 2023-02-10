@@ -1,11 +1,14 @@
 from django.db import models
 from django_fsm import FSMField, transition
 
-from .user import User
 from accounting.constants.states import MEMBERSHIP_STATES, CREATED, ACTIVE, INACTIVE, INVITED, REMOVED, SUSPENDED
+from .user import User
 
 
 class Membership(models.Model):
+    """
+    Membership model
+    """
     # Relations
     user = models.ForeignKey(
         User,
@@ -17,14 +20,14 @@ class Membership(models.Model):
         on_delete=models.CASCADE,
         related_name='added_memberships',
     )
-    # TODO: i need to add a relation to the role model, must be many to many
+    # TODO: I need to add a relation to the role model, must be many to many
 
     # State machine
     state = FSMField(
-      default=CREATED,
-      choices=MEMBERSHIP_STATES,
-      verbose_name='Membership state',
-      protected=True)
+        default=CREATED,
+        choices=MEMBERSHIP_STATES,
+        verbose_name='Membership state',
+        protected=True)
 
     # Fields
     invitation_code = models.UUIDField()
@@ -35,11 +38,18 @@ class Membership(models.Model):
         verbose_name = "Membership"
         verbose_name_plural = "Memberships"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'User: {self.user} - Added by {self.added_by}'
 
     @transition(field=state, source=CREATED, target=INVITED)
     def invite(self):
+        """
+        Method used to transition the membership to the invited state
+
+        :param self: Refer to the object itself
+        :return: A string
+
+        """
         pass
 
     @transition(field=state, source=INVITED, target=ACTIVE)

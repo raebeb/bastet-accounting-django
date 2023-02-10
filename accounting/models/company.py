@@ -2,6 +2,9 @@ from django.db import models
 
 
 class Company(models.Model):
+    """
+    Company model
+    """
     name = models.CharField('name', max_length=50)
     #TODO: Change this name to something more meaningful
     tax_refered = models.CharField('tax refered', max_length=50)
@@ -11,4 +14,4 @@ class Company(models.Model):
         verbose_name_plural = "Companies"
 
     def __str__(self):
-        pass
+        return f'{self.name}'
