@@ -1,5 +1,7 @@
 from django.db import models
+
 from .transaction import Transaction
+
 
 class Purchase(Transaction):
     amount_of_recoverable_iva = models.DecimalField(max_digits=10, decimal_places=2) # Monto de IVA recuperable

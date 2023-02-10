@@ -1,5 +1,7 @@
 from django.db import models
+
 from .transaction import Transaction
+
 
 class Sale(Transaction):
     claim_date = models.DateField() # Fecha de reclamación
@@ -28,7 +30,7 @@ class Sale(Transaction):
     class Meta:
         verbose_name = 'Sale'
         verbose_name_plural = 'Sales'
-    
+
     def __str__(self):
         # TODO: I dont know if must be number or folio
         return f'{self.number} - {self.document_type}'
