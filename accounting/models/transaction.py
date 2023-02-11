@@ -1,8 +1,21 @@
 from django.db import models
+
+from accounting.constants.choices import DOCUMENT_TYPE_CHOICES, TRANSACTION_TYPE_CHOICES
 from .accounting import Accounting
-from ..defines import DOCUMENT_TYPE_CHOICES, TRANSACTION_TYPE_CHOICES
+
 
 class Transaction(models.Model):
+    """
+    Abstract model
+
+    Relations:
+        Belong to an accounting
+    
+    Inheritance:
+        Sale
+        Purchase
+    """
+
     accounting = models.ForeignKey(Accounting, on_delete=models.CASCADE)
 
     number = models.IntegerField()
