@@ -15,6 +15,9 @@ class User(AbstractUser):
     
     State machine:
         diagram: diagrams/state_machines/user.md
+
+    Inherits from:
+        AbstractUser
     """
     # Relations
     groups = models.ManyToManyField(Group, related_name='custom_user_groups')

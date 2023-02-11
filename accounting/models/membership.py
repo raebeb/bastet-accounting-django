@@ -23,11 +23,7 @@ class Membership(models.Model):
         on_delete=models.CASCADE,
         related_name='memberships',
     )
-    added_by = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        related_name='added_memberships',
-    )
+    added_by = models.integerField()
     roles = models.ManyToManyField(
         Role,
         related_name='memberships')

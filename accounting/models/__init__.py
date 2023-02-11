@@ -12,3 +12,5 @@ from .transaction import Transaction
 from .user import User
 from .stakeholder import Stakeholder
 from .plan_organization import PlanOrganization
+from .plan import Plan
+from .join_request import JoinRequest
