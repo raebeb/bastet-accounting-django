@@ -1,8 +1,15 @@
-from djando.db import models
+from django.db import models
 from django_fsm import FSMField, transition
+
 from accounting.constants.states import PLAN_STATES, DRAFT, CREATED, PUBLISHED, HIDDEN, FINISHED
 
 class Plan(models.Model):
+    """
+    Plan model
+
+    State machine:
+        diagram: diagrams/state_machines/plan.md
+    """
     # State machine
     state = FSMField(
       default=DRAFT,
@@ -22,7 +29,7 @@ class Plan(models.Model):
         verbose_name = 'Plan'
         verbose_name_plural = 'Plans'
     
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
     
     @transition(field=state, source=DRAFT, target=CREATED)
@@ -36,10 +43,11 @@ class Plan(models.Model):
     @transition(field=state, source=PUBLISHED, target=HIDDEN)
     def hide(self):
         pass
+
+    @transition(field=state, source=HIDDEN, target=PUBLISHED)
+    def show(self):
+        pass
     
     @transition(field=state, source=HIDDEN, target=FINISHED)
     def finish(self):
         pass
-  
-
-    

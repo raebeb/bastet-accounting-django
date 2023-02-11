@@ -7,6 +7,16 @@ from .plan import Plan
 
 
 class PlanOrganization(models.Model):
+    """ 
+    PlanOrganization model
+
+    Relations:
+        Belong to a plan
+        Belong to an organization
+
+    State machine:
+        diagram: diagrams/state_machines/plan_organization.md
+    """
     # Relations
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
@@ -29,7 +39,7 @@ class PlanOrganization(models.Model):
         verbose_name = 'PlanOrganization'
         verbose_name_plural = 'PlanOrganizations'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.plan.name} - {self.organization.name}'
 
     @transition(field=state, source=CREATED, target=ACTIVE)

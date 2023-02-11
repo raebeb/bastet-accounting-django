@@ -9,6 +9,13 @@ from .user import User
 class JoinRequest(models.Model):
     """
     Join request model
+
+    Relations:
+        Belong to a user
+        Belong to an organization
+    
+    State machine:
+        diagram: diagrams/states/join_request.md
     """
     # Relations
     user = models.ForeignKey(

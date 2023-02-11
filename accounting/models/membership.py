@@ -3,11 +3,19 @@ from django_fsm import FSMField, transition
 
 from accounting.constants.states import MEMBERSHIP_STATES, CREATED, ACTIVE, INACTIVE, INVITED, REMOVED, SUSPENDED
 from .user import User
+from .role import Role
 
 
 class Membership(models.Model):
     """
     Membership model
+
+    Relations:
+        Belong to a user
+        Has many roles
+
+    State machine:
+        diagram: diagrams/states/membership.md
     """
     # Relations
     user = models.ForeignKey(
@@ -20,15 +28,15 @@ class Membership(models.Model):
         on_delete=models.CASCADE,
         related_name='added_memberships',
     )
-    # TODO: I need to add a relation to the role model, must be many to many
-
+    roles = models.ManyToManyField(
+        Role,
+        related_name='memberships')
     # State machine
     state = FSMField(
         default=CREATED,
         choices=MEMBERSHIP_STATES,
         verbose_name='Membership state',
         protected=True)
-
     # Fields
     invitation_code = models.UUIDField()
     # Timestamps
@@ -39,7 +47,7 @@ class Membership(models.Model):
         verbose_name_plural = "Memberships"
 
     def __str__(self) -> str:
-        return f'User: {self.user} - Added by {self.added_by}'
+        return f'User: {self.user} - Added by {self.added_by.name}'
 
     @transition(field=state, source=CREATED, target=INVITED)
     def invite(self):
@@ -50,6 +58,10 @@ class Membership(models.Model):
         :return: A string
 
         """
+        pass
+
+    @transition(field=state, source=CREATED, target=ACTIVE)
+    def create(self):
         pass
 
     @transition(field=state, source=INVITED, target=ACTIVE)
