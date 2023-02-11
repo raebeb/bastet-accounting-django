@@ -5,6 +5,17 @@ from django.db import models
 from accounting.constants.states import USER_STATES, CREATED, VERIFIED, BANNED
 
 class User(AbstractUser):
+    """
+    
+    Relations:
+        Has many Group
+        Has many Permission
+        Has many Membership
+        has many JoinRequest
+    
+    State machine:
+        diagram: diagrams/state_machines/user.md
+    """
     # Relations
     groups = models.ManyToManyField(Group, related_name='custom_user_groups')
     user_permissions = models.ManyToManyField(Permission, related_name='accounting_user_permissions')
@@ -26,7 +37,7 @@ class User(AbstractUser):
         verbose_name = "User"
         verbose_name_plural = "Users"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.username}'
 
     @transition(field=state, source=CREATED, target=VERIFIED)

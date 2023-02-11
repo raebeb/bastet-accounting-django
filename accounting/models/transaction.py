@@ -5,6 +5,17 @@ from .accounting import Accounting
 
 
 class Transaction(models.Model):
+    """
+    Abstract model
+
+    Relations:
+        Belong to an accounting
+    
+    Inheritance:
+        Sale
+        Purchase
+    """
+
     accounting = models.ForeignKey(Accounting, on_delete=models.CASCADE)
 
     number = models.IntegerField()

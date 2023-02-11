@@ -19,7 +19,7 @@ class Plan(models.Model):
     # Fields
     name = models.CharField(max_length=100)
     kind = models.CharField(max_length=50)
-    company_quantities = models.IntegerField()
+    company_quantity = models.IntegerField()
 
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
@@ -28,10 +28,10 @@ class Plan(models.Model):
     class Meta:
         verbose_name = 'Plan'
         verbose_name_plural = 'Plans'
-    
+
     def __str__(self) -> str:
         return self.name
-    
+
     @transition(field=state, source=DRAFT, target=CREATED)
     def create(self):
         pass
@@ -47,7 +47,7 @@ class Plan(models.Model):
     @transition(field=state, source=HIDDEN, target=PUBLISHED)
     def show(self):
         pass
-    
+
     @transition(field=state, source=HIDDEN, target=FINISHED)
     def finish(self):
         pass

@@ -5,7 +5,6 @@ from accounting.constants.states import JOIN_REQUEST_STATES, CREATED, ACCEPTED, 
 from .organization import Organization
 from .user import User
 
-
 class JoinRequest(models.Model):
     """
     Join request model

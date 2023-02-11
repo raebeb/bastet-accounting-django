@@ -4,6 +4,11 @@ from .transaction import Transaction
 
 
 class Sale(Transaction):
+    """
+
+    Inherits from Transaction
+    """
+    # Fields
     claim_date = models.DateField() # Fecha de reclamación
     total_iva_withheld = models.DecimalField(max_digits=20, decimal_places=2) # Total de IVA retenido
     partial_iva_withheld = models.DecimalField(max_digits=20, decimal_places=2) # IVA retenido parcial
@@ -31,6 +36,6 @@ class Sale(Transaction):
         verbose_name = 'Sale'
         verbose_name_plural = 'Sales'
 
-    def __str__(self):
+    def __str__(self) -> str:
         # TODO: I dont know if must be number or folio
         return f'{self.number} - {self.document_type}'
