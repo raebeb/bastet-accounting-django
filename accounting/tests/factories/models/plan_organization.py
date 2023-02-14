@@ -14,6 +14,7 @@ class PlanOrganizationFactory(factory.Factory):
     class Meta:
         model = PlanOrganization
 
+    id = factory.Sequence(lambda n: n)
     plan = factory.SubFactory(PlanFactory)
     organization = factory.SubFactory(OrganizationFactory)
     is_active = True
