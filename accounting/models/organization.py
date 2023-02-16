@@ -21,6 +21,7 @@ class Organization(models.Model):
         max_length=50,
         unique=True,
     )
+    join_code = models.CharField(max_length=6, unique=True)
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
