@@ -17,7 +17,9 @@ class PlanOrganizationFactory(factory.Factory):
     id = factory.Sequence(lambda n: n)
     plan = factory.SubFactory(PlanFactory)
     organization = factory.SubFactory(OrganizationFactory)
-    is_active = True
-    start_date = faker.date()
+    state = 'CREATED'
+    start_date = faker.date_object()
     end_date = start_date + timedelta(days=30)
+    created_at = faker.date_time()
+    updated_at = faker.date_time()
     price = faker.pydecimal(left_digits=2, right_digits=2, positive=True)

@@ -15,4 +15,4 @@ class JoinRequestFactory(factory.Factory):
     user = factory.SubFactory('accounting.tests.factories.models.user_factory.UserFactory')
     organization = factory.SubFactory('accounting.tests.factories.models.organization_factory.OrganizationFactory')
     #TODO: get existing membership id
-    rewiewed_by = 1
+    reviewed_by = 1

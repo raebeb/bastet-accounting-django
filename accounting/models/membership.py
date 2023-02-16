@@ -23,7 +23,7 @@ class Membership(models.Model):
         on_delete=models.CASCADE,
         related_name='memberships',
     )
-    added_by = models.integerField()
+    added_by = models.IntegerField()
     roles = models.ManyToManyField(
         Role,
         related_name='memberships')
@@ -43,7 +43,7 @@ class Membership(models.Model):
         verbose_name_plural = "Memberships"
 
     def __str__(self) -> str:
-        return f'User: {self.user} - Added by {self.added_by.name}'
+        return f'User: {self.user} - Added by {self.added_by}'
 
     @transition(field=state, source=CREATED, target=INVITED)
     def invite(self):
