@@ -1,7 +1,12 @@
 from django.db import models
+
 from .company import Company
 
+
 class EconomicActivity(models.Model):
+    """
+    Economic Activity model
+    """
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
     code = models.CharField(max_length=20)
@@ -14,6 +19,6 @@ class EconomicActivity(models.Model):
     class Meta:
         verbose_name = 'Economic Activity'
         verbose_name_plural = 'Economic Activities'
-    
-    def __str__(self):
+
+    def __str__(self) -> str:
         return f'{self.code} - {self.name}'

@@ -1,7 +1,12 @@
 from django.db import models
+
 from .transaction import Transaction
 
+
 class Purchase(Transaction):
+    """
+    Inherit from Transaction model
+    """
     amount_of_recoverable_iva = models.DecimalField(max_digits=10, decimal_places=2) # Monto de IVA recuperable
     amount_of_non_recoverable_iva = models.DecimalField(max_digits=10, decimal_places=2) # Monto de IVA no recuperable
     non_recoverable_iva_code = models.CharField(max_length=2) # Código de IVA no recuperable
@@ -18,6 +23,6 @@ class Purchase(Transaction):
         verbose_name = 'Purchase'
         verbose_name_plural = 'Purchases'
 
-    def __str__(self):
+    def __str__(self) -> str:
         # TODO: I dont know if must be number or folio
         return f'{self.number} - {self.document_type}'
