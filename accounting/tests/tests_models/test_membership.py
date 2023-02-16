@@ -16,14 +16,13 @@ class MembershipTestCase(unittest.TestCase):
         :return: None
         """
         self.assertEqual(hasattr(self.membership, 'user'), True)
-        self.assertEqual(hasattr(self.membership, 'organization'), True)
         self.assertEqual(hasattr(self.membership, 'roles'), True)
         self.assertEqual(hasattr(self.membership, 'added_by'), True)
         self.assertEqual(hasattr(self.membership, 'invitation_code'), True)
         self.assertEqual(hasattr(self.membership, 'created_at'), True)
         self.assertEqual(hasattr(self.membership, 'updated_at'), True)
 
-        self.assertEqual(f'{self.membership.user.first_name} {self.membership.user.last_name} - {self.membership.organization.name}', self.membership.__str__())
+        self.assertEqual( f'User: {self.membership.user} - Added by {self.membership.added_by}', self.membership.__str__())
 
 
 if __name__ == '__main__':

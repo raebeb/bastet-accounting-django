@@ -18,7 +18,7 @@ class JoinRequestTestCase(unittest.TestCase):
         self.assertEqual(hasattr(self.join_request, 'created_at'), True)
         self.assertEqual(hasattr(self.join_request, 'updated_at'), True)
 
-        self.assertEqual(f'{self.join_request.user.first_name} {self.join_request.user.last_name} - {self.join_request.organization.name}', self.join_request.__str__())
+        self.assertEqual(f'User: {self.join_request.user.username} - Organization: {self.join_request.organization.name}', self.join_request.__str__())
 
 
 if __name__ == '__main__':

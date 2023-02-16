@@ -25,7 +25,7 @@ class OrganizationTestCase(unittest.TestCase):
         self.assertEqual(hasattr(self.organization, 'created_at'), True)
         self.assertEqual(hasattr(self.organization, 'updated_at'), True)
 
-        self.assertEqual(self.organization.__str__(), self.organization.name
+        self.assertEqual(self.organization.__str__(), self.organization.name)
 
 
 if __name__ == '__main__':

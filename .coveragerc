@@ -3,7 +3,16 @@
 branch = True
 
 [report]
-omit = manage.py
+omit =
+    */tests/*
+    manage.py
+    *__init__.py
+    *settings.py*
+    *urls.py*
+    *admin.py*
+    *apps.py*
+
+
 
 # Regexes for lines to exclude from consideration
 exclude_lines =
