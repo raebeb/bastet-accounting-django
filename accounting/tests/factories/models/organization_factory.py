@@ -1,3 +1,5 @@
+import string
+
 import factory
 from faker import Faker
 
@@ -16,7 +18,9 @@ class OrganizationFactory(factory.Factory):
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: 'Organization {0}'.format(n))
     slug = factory.Sequence(lambda n: 'organization-{0}'.format(n))
-    join_code = faker.pystr_format(string_format='??????{{random_int}}{{random_letter}}', letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    join_code = ''.join(faker.random_elements(elements=(string.ascii_uppercase + string.digits), length=6))
+    created_at = faker.date_time()
+    updated_at = faker.date_time()
 
     @factory.post_generation
     def plans(self, create, extracted, **kwargs):
