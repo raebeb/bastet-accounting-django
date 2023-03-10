@@ -13,6 +13,6 @@ class CompanyFactory(factory.Factory):
         model = Company
 
     id = factory.Sequence(lambda n: n)
-    name = faker.company()
-    tax_refered = faker.name()
-    address = faker.address()
+    name = factory.LazyAttribute(lambda o: faker.company())
+    tax_refered = factory.LazyAttribute(lambda o: faker.company())
+    address = factory.LazyAttribute(lambda o: faker.address())

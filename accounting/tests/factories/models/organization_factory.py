@@ -18,7 +18,7 @@ class OrganizationFactory(factory.Factory):
     id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: 'Organization {0}'.format(n))
     slug = factory.Sequence(lambda n: 'organization-{0}'.format(n))
-    join_code = ''.join(faker.random_elements(elements=(string.ascii_uppercase + string.digits), length=6))
+    join_code = factory.LazyAttribute(lambda o: ''.join(faker.random_letters(length=6)).replace(' ', ''))
     created_at = faker.date_time()
     updated_at = faker.date_time()
 

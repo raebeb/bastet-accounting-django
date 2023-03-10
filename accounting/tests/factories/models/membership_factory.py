@@ -25,5 +25,5 @@ class MembershipFactory(factory.Factory):
 
     #TODO: get existing membership id
     added_by = 1
-    invitation_code = faker.uuid4()
+    invitation_code = factory.LazyAttribute(lambda o: faker.uuid4())
 

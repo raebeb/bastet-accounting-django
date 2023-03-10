@@ -15,8 +15,8 @@ class UserFactory(factory.Factory):
 
     id = factory.Sequence(lambda n: n)
     username = factory.Sequence(lambda n: 'user{0}'.format(n))
-    current_sign_in_ip = faker.ipv4()
-    last_sign_in_ip = faker.ipv4()
+    current_sign_in_ip = factory.LazyAttribute(lambda o: faker.ipv4())
+    last_sign_in_ip = factory.LazyAttribute(lambda o: faker.ipv4())
     state = 'created'
     current_organization = 1
     created_at = faker.date_time()
