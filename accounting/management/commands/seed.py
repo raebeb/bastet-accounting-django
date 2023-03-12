@@ -104,6 +104,15 @@ class Command(BaseCommand):
                 return
 
 
+# TODO: This method should be a abstract class
+# example to use: create_object_factory_for('User', **kwargs)
+def create_object_factory_for(object, **kwargs):
+    """
+    Create a new object.
+    """
+    factory_class = globals()[class_name + "Factory"]
+    return factory_class(**kwargs)
+
 def create_user():
     """
     Create a new User object.
