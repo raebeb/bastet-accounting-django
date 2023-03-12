@@ -32,7 +32,7 @@ class User(AbstractUser):
     # Fields
     current_sign_in_ip = models.GenericIPAddressField(null=True, blank=True)
     last_sign_in_ip = models.GenericIPAddressField(null=True, blank=True)
-    current_organization = models.IntegerField()
+    current_organization = models.IntegerField(null=True, blank=True)
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

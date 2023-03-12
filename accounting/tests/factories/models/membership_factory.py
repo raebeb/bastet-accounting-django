@@ -13,6 +13,8 @@ class MembershipFactory(factory.Factory):
     #TODO: add user and roles factories
     user = factory.SubFactory('accounting.tests.factories.models.user_factory.UserFactory')
     id = factory.Sequence(lambda n: n)
+    created_at = faker.date_time()
+    updated_at = faker.date_time()
     @factory.post_generation
     def roles(self, create, extracted, **kwargs):
         if not create:
@@ -23,5 +25,5 @@ class MembershipFactory(factory.Factory):
 
     #TODO: get existing membership id
     added_by = 1
-    invitation_code = faker.uuid4()
+    invitation_code = factory.LazyAttribute(lambda o: faker.uuid4())
 

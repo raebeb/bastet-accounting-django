@@ -2,7 +2,7 @@ import unittest
 
 from accounting.tests.factories.models.organization_factory import OrganizationFactory
 from accounting.tests.factories.models.plan_factory import PlanFactory
-from accounting.tests.factories.models.plan_organization import PlanOrganizationFactory
+from accounting.tests.factories.models.plan_organization_factory import PlanOrganizationFactory
 
 
 class PlanOrganizationTestCase(unittest.TestCase):
