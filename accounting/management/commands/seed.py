@@ -6,8 +6,6 @@ faker = Faker()
 
 from accounting.models import JoinRequest, Membership, Accounting, PlanOrganization, Company, Organization, Plan, \
     Role
-from accounting.tests.factories import UserFactory, RoleFactory, PlanOrganizationFactory, PlanFactory, OrganizationFactory, MembershipFactory, JoinRequestFactory, AccountingFactory
-from accounting.tests.factories.models.company_factory import CompanyFactory
 
 # python manage.py seed --mode=refresh
 """clear all data and create new data"""
@@ -70,110 +68,36 @@ class Command(BaseCommand):
             self.stdout.write('Clearing completed successfully.')
 
         for _ in range(10):
-            user = create_user()
-            role = create_role()
-            plan = create_plan()
-            organization = create_organization()
-            company = create_company()
-            plan_organization = create_plan_organization(organization=organization, plan=plan)
-            accounting = create_accounting(company=company)
-            membership = create_membership(user=user)
-            join_request = create_join_request(organization=organization, user=user)
+            user = create_object_factory_for('User')
+            role = create_object_factory_for('Role')
+            plan = create_object_factory_for('Plan')
+            organization = create_object_factory_for('Organization')
+            company = create_object_factory_for('Company')
+            plan_organization = create_object_factory_for('PlanOrganization', plan=plan, organization=organization)
+            accounting = create_object_factory_for('Accounting', company=company)
+            membership = create_object_factory_for('Membership', organization=organization, user=user, role=role)
+            join_request = create_object_factory_for('JoinRequest', organization=organization, user=user)
 
             try:
                 user.save()
-                print('User saved')
                 role.save()
-                print('Role saved')
                 plan.save()
-                print('Plan saved')
                 organization.save()
-                print('Organization saved')
                 company.save()
-                print('Company saved')
                 plan_organization.save()
-                print('PlanOrganization saved')
                 accounting.save()
-                print('Accounting saved')
                 membership.save()
-                print('Membership saved')
                 join_request.save()
-                print('JoinRequest saved')
+
             except Exception as e:
                 print(f'Error -> {e}')
                 return
 
 
-# TODO: This method should be a abstract class
-# example to use: create_object_factory_for('User', **kwargs)
-def create_object_factory_for(object, **kwargs):
+def create_object_factory_for(model_name: str, **kwargs) -> object:
     """
     Create a new object.
     """
-    factory_class = globals()[class_name + "Factory"]
+    factory_class = globals()[model_name + "Factory"]
     return factory_class(**kwargs)
 
-def create_user():
-    """
-    Create a new User object.
-    """
-    user = UserFactory()
-    return user
-
-
-def create_role():
-    """
-    Create a new Role object.
-    """
-    role = RoleFactory()
-    return role
-
-
-def create_plan():
-    """
-    Create a new Plan object.
-    """
-    return PlanFactory()
-
-
-def create_organization():
-    """
-    Create a new Organization object.
-    """
-
-    return OrganizationFactory()
-
-
-def create_company():
-    """
-    Create a new Company object.
-    """
-    return CompanyFactory()
-
-
-def create_plan_organization(organization, plan):
-    """
-    Create a new PlanOrganization object.
-    """
-    return PlanOrganizationFactory(organization=organization, plan=plan)
-
-
-def create_accounting(company):
-    """
-    Create a new Accounting object.
-    """
-    return AccountingFactory(company=company)
-
-
-def create_membership(user):
-    """
-    Create a new Membership object.
-    """
-    return MembershipFactory(user=user)
-
-
-def create_join_request(organization, user):
-    """
-    Create a new JoinRequest object.
-    """
-    return JoinRequestFactory(organization=organization, user=user)
