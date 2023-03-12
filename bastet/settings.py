@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,13 +35,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'postmark',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounting.apps.AccountingConfig'
+    'accounting.apps.AccountingConfig',
 ]
 
 MIDDLEWARE = [
@@ -121,4 +126,21 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Default pr
+
+# SMTP settings
+
+# For more documentation on this, see: https://docs.djangoproject.com/en/4.1/topics/email
+# Config for Postmark
+# EMAIL_BACKEND = "postmark.backends.PostmarkBackend"
+# POSTMARK_API_KEY = 'POSTMARK_API_TEST'
+# POSTMARK_API_USER = "exampleuser"
+# POSTMARK_API_PASSWORD = "examplepassword"
+
+# Config for gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = 'javieromar.pxl@gmail.com'
+EMAIL_HOST_PASSWORD = 'wjmooqwiiofkiwwl'
