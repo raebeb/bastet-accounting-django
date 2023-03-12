@@ -16,9 +16,9 @@ class Organization(models.Model):
     plans = models.ManyToManyField(Plan, through='PlanOrganization')
 
     # Fields
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
     slug = models.SlugField(
-        max_length=50,
+        max_length=200,
         unique=True,
     )
     join_code = models.CharField(max_length=6, unique=True)

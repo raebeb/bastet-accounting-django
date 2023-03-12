@@ -18,7 +18,7 @@ class Plan(models.Model):
       protected=True)
     # Fields
     name = models.CharField(max_length=100)
-    kind = models.CharField(max_length=50)
+    kind = models.CharField(max_length=100)
     company_quantity = models.IntegerField()
 
     # Timestamps

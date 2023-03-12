@@ -1,4 +1,7 @@
 from faker import Faker
+
+from accounting.tests.factories import OrganizationFactory, UserFactory
+
 faker = Faker()
 import factory
 
@@ -12,7 +15,8 @@ class JoinRequestFactory(factory.Factory):
     class Meta:
         model = JoinRequest
     id = factory.Sequence(lambda n: n)
-    user = factory.SubFactory('accounting.tests.factories.models.user_factory.UserFactory')
-    organization = factory.SubFactory('accounting.tests.factories.models.organization_factory.OrganizationFactory')
+    user = factory.SubFactory(UserFactory)
+    organization = factory.SubFactory(OrganizationFactory)
     #TODO: get existing membership id
     reviewed_by = 1
+    created_at = faker.date_time()
