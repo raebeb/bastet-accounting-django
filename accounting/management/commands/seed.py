@@ -71,7 +71,6 @@ class Command(BaseCommand):
 
         for _ in range(10):
             user = create_user()
-
             role = create_role()
             plan = create_plan()
             organization = create_organization()
@@ -109,8 +108,7 @@ def create_user():
     """
     Create a new User object.
     """
-    user = UserFactory.create()
-    user.save()
+    user = UserFactory()
     return user
 
 
@@ -118,8 +116,7 @@ def create_role():
     """
     Create a new Role object.
     """
-    role = RoleFactory.create()
-    role.save()
+    role = RoleFactory()
     return role
 
 
