@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-&h8d1y=eb*vh3*8-6)-4@xynqtawh!+h^gi*qn=4r_3wslk4py
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 # Application definition
 
@@ -74,7 +73,11 @@ WSGI_APPLICATION = 'bastet.wsgi.application'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
-    ]
+    ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 # Database
