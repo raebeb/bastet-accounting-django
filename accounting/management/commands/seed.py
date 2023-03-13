@@ -3,9 +3,10 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 faker = Faker()
 
+from accounting.tests.factories import UserFactory, RoleFactory, PlanOrganizationFactory, PlanFactory, OrganizationFactory, MembershipFactory, JoinRequestFactory, AccountingFactory, CompanyFactory
 
 from accounting.models import JoinRequest, Membership, Accounting, PlanOrganization, Company, Organization, Plan, \
-    Role
+    Role, User
 
 # python manage.py seed --mode=refresh
 """clear all data and create new data"""
@@ -46,6 +47,7 @@ class Command(BaseCommand):
         :return: None
         """
 
+        # User.objects.all().delete()
         Role.objects.all().delete()
         Plan.objects.all().delete()
         Organization.objects.all().delete()
@@ -75,7 +77,7 @@ class Command(BaseCommand):
             company = create_object_factory_for('Company')
             plan_organization = create_object_factory_for('PlanOrganization', plan=plan, organization=organization)
             accounting = create_object_factory_for('Accounting', company=company)
-            membership = create_object_factory_for('Membership', organization=organization, user=user, role=role)
+            membership = create_object_factory_for('Membership', user=user)
             join_request = create_object_factory_for('JoinRequest', organization=organization, user=user)
 
             try:
@@ -100,4 +102,5 @@ def create_object_factory_for(model_name: str, **kwargs) -> object:
     """
     factory_class = globals()[model_name + "Factory"]
     return factory_class(**kwargs)
+
 

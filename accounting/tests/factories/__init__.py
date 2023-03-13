@@ -6,3 +6,4 @@ from .models.organization_factory import OrganizationFactory
 from .models.membership_factory import MembershipFactory
 from .models.join_request_factory import JoinRequestFactory
 from .models.accounting_factory import AccountingFactory
+from .models.company_factory import CompanyFactory

@@ -15,4 +15,4 @@ class CompanyFactory(factory.Factory):
     id = factory.Sequence(lambda n: n)
     name = factory.LazyAttribute(lambda o: faker.company())
     tax_refered = factory.LazyAttribute(lambda o: faker.company())
-    address = factory.LazyAttribute(lambda o: faker.address())
+    password = factory.LazyAttribute(lambda o: faker.password())
