@@ -7,12 +7,16 @@ from rest_framework.response import Response
 
 from accounting.models import Company
 from accounting.serializers.company_serializer import CompanySerializer
+from rest_framework.viewsets import GenericViewSet
+from rest_framework.mixins import (
+    CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+)
 
 
 import pdb # for debugging
 
 
-class CompanyViewSet(viewsets.ModelViewSet):
+class CompanyViewSet(GenericViewSet, CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     permission_classes = [permissions.AllowAny]
@@ -21,7 +25,6 @@ class CompanyViewSet(viewsets.ModelViewSet):
         return CompanySerializer
     
     def get_queryset(self):
-        queryset = super().get_queryset()
 
         if self.action == 'list':
             return Company.objects.all()
@@ -33,10 +36,34 @@ class CompanyViewSet(viewsets.ModelViewSet):
             pass
     
     def create(self, request):
-        serializer = CompanySerializer(data=request.data)
+        queryset = self.get_queryset()
+        serializer_class = self.get_serializer_class()
+        serializer = serializer_class(data=request.data)
+
         if serializer.is_valid():
-            print('new_company saved')
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            print('new_company not saved')
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+        ### This is ur code
+        # serializer = CompanySerializer(data=request.data)
+        # if serializer.is_valid():
+        #     print(f'REQUEST DATA {request.data}')
+        #     body = request.data
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # else:
+        #     print('new_company not saved')
+        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer_class = self.get_serializer_class()
+        serializer = serializer_class(data=queryset, many=True)
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
