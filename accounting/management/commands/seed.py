@@ -8,6 +8,9 @@ from accounting.tests.factories import UserFactory, RoleFactory, PlanOrganizatio
 from accounting.models import JoinRequest, Membership, Accounting, PlanOrganization, Company, Organization, Plan, \
     Role, User
 
+import pdb # for debugging
+
+
 # python manage.py seed --mode=refresh
 """clear all data and create new data"""
 MODE_REFRESH = 'refresh'
@@ -46,16 +49,13 @@ class Command(BaseCommand):
         Execute method to clear the database
         :return: None
         """
-
-        # User.objects.all().delete()
-        Role.objects.all().delete()
-        Plan.objects.all().delete()
-        Organization.objects.all().delete()
-        Accounting.objects.all().delete()
-        Company.objects.all().delete()
-        PlanOrganization.objects.all().delete()
-        Membership.objects.all().delete()
-        JoinRequest.objects.all().delete()
+        pdb.set_trace()
+        if User.objects.all().count() > 0:
+            # User.objects.all().delete()
+            Role.objects.all().delete()
+            Plan.objects.all().delete()
+            Accounting.objects.all().delete()
+            Organization.objects.all().delete()
 
 
     def _seed(self):
@@ -74,7 +74,7 @@ class Command(BaseCommand):
             role = create_object_factory_for('Role')
             plan = create_object_factory_for('Plan')
             organization = create_object_factory_for('Organization')
-            company = create_object_factory_for('Company')
+            company = create_object_factory_for('Company', organization=organization)
             plan_organization = create_object_factory_for('PlanOrganization', plan=plan, organization=organization)
             accounting = create_object_factory_for('Accounting', company=company)
             membership = create_object_factory_for('Membership', user=user)
