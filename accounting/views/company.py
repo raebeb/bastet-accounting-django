@@ -41,7 +41,7 @@ class CompanyViewSet(GenericViewSet, CreateModelMixin, ListModelMixin, RetrieveM
         serializer = serializer_class(data=request.data)
 
         if serializer.is_valid():
-            serializer.save()
+            serializer.create(serializer.validated_data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

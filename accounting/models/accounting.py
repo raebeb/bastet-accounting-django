@@ -14,4 +14,4 @@ class Accounting(models.Model):
         verbose_name_plural = "Accountings"
 
     def __str__(self) -> str:
-        return f'Accountign for {self.company.name}'
+        return f'Accountign for '
