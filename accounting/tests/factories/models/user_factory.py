@@ -13,7 +13,6 @@ class UserFactory(factory.Factory):
         model = User
 
 
-    id = factory.Sequence(lambda n: n)
     username = factory.Sequence(lambda n: 'user{0}'.format(n))
     current_sign_in_ip = factory.LazyAttribute(lambda o: faker.ipv4())
     last_sign_in_ip = factory.LazyAttribute(lambda o: faker.ipv4())

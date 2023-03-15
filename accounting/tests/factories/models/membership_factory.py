@@ -12,7 +12,6 @@ class MembershipFactory(factory.Factory):
         model = Membership
     #TODO: add user and roles factories
     user = factory.SubFactory('accounting.tests.factories.models.user_factory.UserFactory')
-    id = factory.Sequence(lambda n: n)
     created_at = faker.date_time()
     updated_at = faker.date_time()
     @factory.post_generation

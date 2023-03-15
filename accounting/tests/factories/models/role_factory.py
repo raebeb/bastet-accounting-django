@@ -12,6 +12,5 @@ class RoleFactory(factory.Factory):
         model = Role
 
 
-    id = factory.Sequence(lambda n: n)
 
     name = factory.LazyAttribute(lambda o: faker.name())
