@@ -21,38 +21,69 @@ _Estas instrucciones te permitirán obtener una copia del proyecto en funcionami
 
 ### 1. Clonar el repositorio
 ```
-https://github.com/raebeb/bastet-accounting-django.git
+	https://github.com/raebeb/bastet-accounting-django.git
 ```
 ó
 ```
-git@github.com:raebeb/bastet-accounting-django.git
+	git@github.com:raebeb/bastet-accounting-django.git
 ```
 ---
 
 ### 2. Levantar el contenedor
 ```
-docker-compose up
+	docker-compose up
 ```
 > Si es primera vez que se levanta el proyecto, este se _buildeara_ e instalara todas las dependencias necesarias
 
 Si en la terminal aparece un mensaje como el siguiente, el proyecto se ha levantado con éxito
 ```
-Container bastet-accounting-django-db-1  Running
-Container bastet-accounting-django-web-1  Created
-Attaching to bastet-accounting-django-web-1
-bastet-accounting-django-web-1  | Watching for file changes with StatReloader
-bastet-accounting-django-web-1  | Performing system checks...
-bastet-accounting-django-web-1  | 
-bastet-accounting-django-web-1  | System check identified no issues (0 silenced).
-bastet-accounting-django-web-1  | February 10, 2023 - 19:05:29
-bastet-accounting-django-web-1  | Django version 4.1.4, using settings 'bastet.settings'
-bastet-accounting-django-web-1  | Starting development server at http://0.0.0.0:8000/
-bastet-accounting-django-web-1  | Quit the server with CONTROL-C.
+	Container bastet-accounting-django-db-1  Running
+	Container bastet-accounting-django-web-1  Created
+	Attaching to bastet-accounting-django-web-1
+	bastet-accounting-django-web-1  | Watching for file changes with StatReloader
+	bastet-accounting-django-web-1  | Performing system checks...
+	bastet-accounting-django-web-1  | 
+	bastet-accounting-django-web-1  | System check identified no issues (0 silenced).
+	bastet-accounting-django-web-1  | February 10, 2023 - 19:05:29
+	bastet-accounting-django-web-1  | Django version 4.1.4, using settings 'bastet.settings'
+	bastet-accounting-django-web-1  | Starting development server at http://0.0.0.0:8000/
+	bastet-accounting-django-web-1  | Quit the server with CONTROL-C.
 
 ```
 > La primera vez que se levanta el proyecto es posible que falle, ya que se levanta web antes que db, si esto ocurre es necesario detener el contenedor con ```Ctrl + C``` y volver a levantarlo con ```docker-compose up```
 
 ---
+### Poblar base de datos
+Antes de hacer cualquier cambio en la base de datos es necesario correr la migraciones con este comando
+
+```
+python manage.py migrate
+```
+
+> Cada vez que se haga algun cambio en los modelos es necesario ejecutar ``` python manage.py makemigrations ``` y luego el comando de arriba
+
+Una vez ejecutadas las migraciones es necesario generar la data inicial para la base de datos, para eso es necesario ejecutar el siguiente comando
+
+```
+python manage.py seed
+```
+
+> a este comando se le pueden agregar las siguientes flags: --mode=initial (genera datos iniciales) --mode=refresh (eliminara los datos existentes y generara nueva data en todos los modelos) --mode=clear (elimina la data existente y no genera nueva data)
+
+En caso de que surja algun problema a base de datos es necesario eliminarla por completo **SOLO EN AMBIENTE DE DEVELOPMENT**
+
+Esto se logra mediante el siguiente comando:
+```
+python manage.py reset_db
+```
+Luego de ejecutarlo nos pedira una confirmacion, una vez reseteada la base de datos es necesario volver a correr migraciones y ejecutar el seed
+
+Si existiera algun problema con el comando anterior se recomienda ejecuar lo siguiente
+```
+docker-compose stop db
+docker-compose start db
+```
+
 
 ***
 ## Ejecutando las pruebas ⚙
@@ -82,7 +113,7 @@ Destroying test database for alias 'default'...
   docker-compose exec web sh -c "coverage report -m"
   ```
 Este comando mostrara un mensaje como el siguiente (siempre y cuando no existan problemas con los tests)
-```
+```sh
 Name                      Stmts   Miss  Cover   Missing
 -------------------------------------------------------
 my_program.py                20      4    80%   33-35, 39

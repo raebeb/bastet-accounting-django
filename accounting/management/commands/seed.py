@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
 from faker import Faker
@@ -8,8 +9,6 @@ from accounting.tests.factories import UserFactory, RoleFactory, PlanOrganizatio
 from accounting.models import JoinRequest, Membership, Accounting, PlanOrganization, Company, Organization, Plan, \
     Role, User
 
-import pdb # for debugging
-
 
 # python manage.py seed --mode=refresh
 """clear all data and create new data"""
@@ -19,6 +18,10 @@ MODE_REFRESH = 'refresh'
 """clear all data and do not create any object"""
 MODE_CLEAR = 'clear'
 
+# python manage.py seed --mode=initial
+"""clear all data and create only initial data"""
+MODE_INITIAL = 'initial'
+
 class Command(BaseCommand):
     help = 'Seed the database with initial data'
 
@@ -26,14 +29,14 @@ class Command(BaseCommand):
         parser.add_argument(
             '--mode',
             type=str,
-            choices=[MODE_REFRESH, MODE_CLEAR],
-            default=MODE_REFRESH,
+            choices=[MODE_REFRESH, MODE_CLEAR, MODE_INITIAL],
+            default=MODE_INITIAL,
             help='Seed mode',
         )
 
     def handle(self, *args, **options):
         mode = options['mode']
-        if mode == MODE_REFRESH:
+        if mode == MODE_REFRESH or mode == MODE_INITIAL:
             self.stdout.write('Seeding the database with initial data...')
             self._seed()
             self.stdout.write('Seeding completed successfully.')
@@ -43,20 +46,16 @@ class Command(BaseCommand):
             self.stdout.write('Clearing completed successfully.')
 
 
-    #TODO: Implement the methods
     def _clear(self) -> None:
         """
         Execute method to clear the database
         :return: None
         """
-        pdb.set_trace()
-        if User.objects.all().count() > 0:
-            # User.objects.all().delete()
-            Role.objects.all().delete()
-            Plan.objects.all().delete()
-            Accounting.objects.all().delete()
-            Organization.objects.all().delete()
-
+        User.objects.all().delete()
+        Role.objects.all().delete()
+        Plan.objects.all().delete()
+        Accounting.objects.all().delete()
+        Organization.objects.all().delete()
 
     def _seed(self):
         """
@@ -71,30 +70,46 @@ class Command(BaseCommand):
 
         for _ in range(10):
             user = create_object_factory_for('User')
-            role = create_object_factory_for('Role')
-            plan = create_object_factory_for('Plan')
             organization = create_object_factory_for('Organization')
-            company = create_object_factory_for('Company', organization=organization)
-            plan_organization = create_object_factory_for('PlanOrganization', plan=plan, organization=organization)
-            accounting = create_object_factory_for('Accounting', company=company)
             membership = create_object_factory_for('Membership', user=user)
-            join_request = create_object_factory_for('JoinRequest', organization=organization, user=user)
 
             try:
                 user.save()
-                role.save()
-                plan.save()
                 organization.save()
-                company.save()
-                plan_organization.save()
-                accounting.save()
                 membership.save()
-                join_request.save()
-
             except Exception as e:
                 print(f'Error -> {e}')
                 return
 
+            if not MODE_INITIAL:
+                role = create_object_factory_for('Role')
+                plan = create_object_factory_for('Plan')
+                company = create_object_factory_for('Company', organization=organization)
+                plan_organization = create_object_factory_for('PlanOrganization', plan=plan, organization=organization)
+                accounting = create_object_factory_for('Accounting', company=company)
+                join_request = create_object_factory_for('JoinRequest', organization=organization, user=user)
+
+                try:
+                    if not MODE_INITIAL:
+                        role.save()
+                        plan.save()
+                        company.save()
+                        plan_organization.save()
+                        accounting.save()
+                        join_request.save()
+
+                except Exception as e:
+                    print(f'Error -> {e}')
+                    return
+
+
+        # Create super user
+        User = get_user_model()
+        User.objects.create_superuser(
+            username='admin',
+            email='admin@admin.com',
+            password='admin'
+        )
 
 def create_object_factory_for(model_name: str, **kwargs) -> object:
     """
