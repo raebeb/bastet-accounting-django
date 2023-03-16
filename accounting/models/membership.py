@@ -23,10 +23,15 @@ class Membership(models.Model):
         on_delete=models.CASCADE,
         related_name='memberships',
     )
-    added_by = models.IntegerField()
-    roles = models.ManyToManyField(
-        Role,
-        related_name='memberships')
+    organization = models.ForeignKey(
+        'Organization',
+        on_delete=models.CASCADE,
+        related_name='memberships',
+    )
+
+    # TODO: When the core is complete (part 1) this field will be required
+    added_by = models.IntegerField(blank=True, null=True)
+    roles = models.ManyToManyField(Role)
     # State machine
     state = FSMField(
         default=CREATED,
@@ -34,7 +39,7 @@ class Membership(models.Model):
         verbose_name='Membership state',
         protected=True)
     # Fields
-    invitation_code = models.UUIDField()
+    invitation_code = models.UUIDField(blank=True, null=True)
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
