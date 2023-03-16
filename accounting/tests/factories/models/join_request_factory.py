@@ -14,7 +14,6 @@ class JoinRequestFactory(factory.Factory):
     """
     class Meta:
         model = JoinRequest
-    id = factory.Sequence(lambda n: n)
     user = factory.SubFactory(UserFactory)
     organization = factory.SubFactory(OrganizationFactory)
     #TODO: get existing membership id

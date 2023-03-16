@@ -12,8 +12,7 @@ class CompanyFactory(factory.Factory):
     class Meta:
         model = Company
 
-    id = factory.Sequence(lambda n: n)
     organization = factory.SubFactory('accounting.tests.factories.models.organization_factory.OrganizationFactory')
     name = factory.LazyAttribute(lambda o: faker.company())
-    # tax_refered = factory.LazyAttribute(lambda o: faker.company())
-    # password = factory.LazyAttribute(lambda o: faker.password())
+    tax_refered = factory.LazyAttribute(lambda o: faker.company())
+    password = factory.LazyAttribute(lambda o: faker.password())

@@ -17,5 +17,4 @@ class AccountingFactory(factory.Factory):
     class Meta:
         model = Accounting
 
-    id = factory.Sequence(lambda n: n)
     company = factory.SubFactory(CompanyFactory)
