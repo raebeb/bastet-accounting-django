@@ -13,9 +13,6 @@ from rest_framework.mixins import (
 )
 
 
-import pdb # for debugging
-
-
 class CompanyViewSet(GenericViewSet, CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
@@ -38,8 +35,8 @@ class CompanyViewSet(GenericViewSet, CreateModelMixin, ListModelMixin, RetrieveM
     def create(self, request):
         queryset = self.get_queryset()
         serializer_class = self.get_serializer_class()
-        serializer = serializer_class(data=request.data)
-
+        # TODO: change when base will be operative (core aplication)
+        serializer = serializer_class(data=request.data, context={'organization': request.user.current_organization()})
         if serializer.is_valid():
             serializer.create(serializer.validated_data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
