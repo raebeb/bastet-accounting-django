@@ -34,7 +34,6 @@ class User(AbstractUser):
     last_sign_in_ip = models.GenericIPAddressField(null=True, blank=True)
     current_membership = models.ForeignKey('Membership', on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
 
-
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -45,11 +44,12 @@ class User(AbstractUser):
     def __str__(self) -> str:
         return f'{self.username}'
     
-    def current_organization(self):
-        if self.current_membership:
-            return self.current_membership.organization
-        else:
-            return None
+    def current_organization(self) -> 'Organization':
+        """ 
+        Returns the current organization of the user though the current membership
+        """
+        return self.current_membership.organization if self.current_membership else None
+
 
     @transition(field=state, source=CREATED, target=VERIFIED)
     def verify(self):
