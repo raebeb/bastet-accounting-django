@@ -1,15 +1,17 @@
 from accounting.models import User
 from rest_framework.test import APITestCase
-from accounting.models import Organization, Membership
+from accounting.tests.factories.models.organization_factory import OrganizationFactory
+from accounting.tests.factories.models.user_factory import UserFactory
+from accounting.tests.factories.models.membership_factory import MembershipFactory
+
 
 class CustomAPITestCase(APITestCase):
     def setUp(self):
-        self.organization = Organization.objects.create(name='organization', slug='123', join_code='test')
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
-        self.membership = Membership.objects.create(user=self.user, organization=self.organization)
+        self.organization = OrganizationFactory()
+        self.user = UserFactory()
+        self.membership = MembershipFactory(user=self.user, organization=self.organization)
         self.user.current_membership = self.membership
-        self.user.save()
-        self.client.login(username='testuser', password='testpassword')
+        self.client.login(username=self.user.username, password='password')
 
-    def Logout(self):
+    def logout(self):
         self.client.logout()

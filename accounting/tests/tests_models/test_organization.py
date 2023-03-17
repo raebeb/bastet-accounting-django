@@ -1,17 +1,10 @@
-import unittest
+from .test_utils import CustomTestCase
 
 from accounting.tests.factories.models.organization_factory import OrganizationFactory
 from accounting.tests.factories.models.plan_factory import PlanFactory
 
 
-class OrganizationTestCase(unittest.TestCase):
-    def setUp(self) -> None:
-        """
-        Set up test with organization instance
-        :return: None
-        """
-        self.plan = PlanFactory()
-        self.organization = OrganizationFactory()
+class OrganizationTestCase(CustomTestCase):
     def test_organization_has_all_its_attributes(self) -> None:
         """
         Test organization has all its attributes
