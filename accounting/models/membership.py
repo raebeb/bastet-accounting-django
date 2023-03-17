@@ -3,7 +3,6 @@ from django_fsm import FSMField, transition
 
 from accounting.constants.states import MEMBERSHIP_STATES, CREATED, ACTIVE, INACTIVE, INVITED, REMOVED, SUSPENDED
 from .user import User
-from .role import Role
 
 
 class Membership(models.Model):
@@ -12,7 +11,6 @@ class Membership(models.Model):
 
     Relations:
         Belong to a user
-        Has many roles
 
     State machine:
         diagram: diagrams/states/membership.md
@@ -31,7 +29,6 @@ class Membership(models.Model):
 
     # TODO: When the core is complete (part 1) this field will be required
     added_by = models.IntegerField(blank=True, null=True)
-    roles = models.ManyToManyField(Role)
     # State machine
     state = FSMField(
         default=CREATED,

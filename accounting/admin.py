@@ -5,7 +5,7 @@ models = apps.get_models('accounting')
 
 models_to_register = [ 'Accounting', 'Characteristic', 'Company',
                        'CompanyContact', 'EconomicActivity','Membership',
-                       'Organization', 'Purchase', 'Role', 'Sale',
+                       'Organization', 'Purchase', 'Sale',
                        'Subscription', 'Transaction', 'User', 'Stakeholder', 'Plan', 'PlanOrganization'
                     ]
 
