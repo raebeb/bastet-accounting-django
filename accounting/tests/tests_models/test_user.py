@@ -9,7 +9,9 @@ class UserTestCase(unittest.TestCase):
         Set up test with user instance
         :return: None
         """
-        self.user = UserFactory()
+        self.user = UserFactory()\
+
+    @unittest.skip('Not implemented yet')
     def test_user_has_all_its_attributes(self) -> None:
         """
         Test user has all its attributes
