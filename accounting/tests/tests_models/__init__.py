@@ -1,5 +1,6 @@
-from .test_plan import PlanTestCase
 import unittest
+
+from .test_plan import PlanTestCase
 
 
 def suite():
