@@ -1,16 +1,27 @@
-from .test_utils import CustomTestCase
+import unittest
 
 from accounting.tests.factories.models.organization_factory import OrganizationFactory
 from accounting.tests.factories.models.plan_factory import PlanFactory
 
 
-class OrganizationTestCase(CustomTestCase):
+class OrganizationTestCase(unittest.TestCase):
+    def setUp(self) -> None:
+        """
+        Set up test with organization instance
+        :return: None
+        """
+        self.plan = PlanFactory()
+        self.plan.save()
+        self.organization = OrganizationFactory()
+        self.organization.plan = self.plan
+
     def test_organization_has_all_its_attributes(self) -> None:
         """
         Test organization has all its attributes
         :arg: self
         :return: None
         """
+        self.organization.save()
         self.assertEqual(hasattr(self.organization, 'plans'), True)
         self.assertEqual(hasattr(self.organization, 'name'), True)
         self.assertEqual(hasattr(self.organization, 'slug'), True)

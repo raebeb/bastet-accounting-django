@@ -5,6 +5,7 @@ from rest_framework import permissions
 from rest_framework import status
 from rest_framework.response import Response
 
+from rest_framework.permissions import IsAuthenticated
 from accounting.models import Company
 from accounting.serializers.company_serializer import CompanySerializer
 from rest_framework.viewsets import GenericViewSet
@@ -16,7 +17,7 @@ from rest_framework.mixins import (
 class CompanyViewSet(GenericViewSet, CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         return CompanySerializer

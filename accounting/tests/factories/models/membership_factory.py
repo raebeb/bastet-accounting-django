@@ -1,6 +1,7 @@
 import factory
 from faker import  Faker
 
+from accounting.tests.factories.models.role_factory import RoleFactory
 
 faker = Faker()
 
@@ -11,7 +12,16 @@ class MembershipFactory(factory.Factory):
         model = Membership
     #TODO: add user and roles factories
     user = factory.SubFactory('accounting.tests.factories.models.user_factory.UserFactory')
-    organization = factory.SubFactory('accounting.tests.factories.models.organization_factory.OrganizationFactory')
+    created_at = faker.date_time()
+    updated_at = faker.date_time()
+    @factory.post_generation
+    def roles(self, create, extracted, **kwargs):
+        if not create:
+            return
+        if extracted:
+            for role in extracted:
+                self.roles.add(role)
+
     #TODO: get existing membership id
     added_by = 1
     invitation_code = factory.LazyAttribute(lambda o: faker.uuid4())

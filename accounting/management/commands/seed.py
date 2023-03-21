@@ -4,10 +4,10 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 faker = Faker()
 
-from accounting.tests.factories import UserFactory, PlanOrganizationFactory, PlanFactory, OrganizationFactory, MembershipFactory, JoinRequestFactory, AccountingFactory, CompanyFactory
+from accounting.tests.factories import UserFactory, RoleFactory, PlanOrganizationFactory, PlanFactory, OrganizationFactory, MembershipFactory, JoinRequestFactory, AccountingFactory, CompanyFactory
 
 from accounting.models import JoinRequest, Membership, Accounting, PlanOrganization, Company, Organization, Plan, \
-    User
+    Role, User
 
 
 # python manage.py seed --mode=refresh
@@ -52,6 +52,7 @@ class Command(BaseCommand):
         :return: None
         """
         User.objects.all().delete()
+        Role.objects.all().delete()
         Plan.objects.all().delete()
         Accounting.objects.all().delete()
         Organization.objects.all().delete()
@@ -81,6 +82,7 @@ class Command(BaseCommand):
                 return
 
             if not MODE_INITIAL:
+                role = create_object_factory_for('Role')
                 plan = create_object_factory_for('Plan')
                 company = create_object_factory_for('Company', organization=organization)
                 plan_organization = create_object_factory_for('PlanOrganization', plan=plan, organization=organization)
@@ -89,6 +91,7 @@ class Command(BaseCommand):
 
                 try:
                     if not MODE_INITIAL:
+                        role.save()
                         plan.save()
                         company.save()
                         plan_organization.save()

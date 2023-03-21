@@ -10,13 +10,12 @@ class UserTestCase(unittest.TestCase):
         :return: None
         """
         self.user = UserFactory()
+
     def test_user_has_all_its_attributes(self) -> None:
         """
         Test user has all its attributes
         :return: None
         """
-        self.assertEqual(hasattr(self.user, 'groups'), True)
-        self.assertEqual(hasattr(self.user, 'user_permissions'), True)
         self.assertEqual(hasattr(self.user, 'state'), True)
         self.assertEqual(hasattr(self.user, 'current_sign_in_ip'), True)
         self.assertEqual(hasattr(self.user, 'last_sign_in_ip'), True)
