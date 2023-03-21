@@ -14,7 +14,6 @@ class PlanOrganizationTestCase(unittest.TestCase):
         self.plan = PlanFactory()
         self.organization = OrganizationFactory()
         self.plan_organization = PlanOrganizationFactory(plan=self.plan, organization=self.organization)
-    @unittest.skip('Not implemented yet')
     def test_plan_organization_has_all_its_attributes(self) -> None:
         """
         Test plan organization has all its attributes

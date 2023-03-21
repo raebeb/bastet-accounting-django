@@ -1,5 +1,6 @@
 import unittest
 
+from accounting.tests.factories import UserFactory
 from accounting.tests.factories.models.membership_factory import MembershipFactory
 
 
@@ -10,12 +11,15 @@ class MembershipTestCase(unittest.TestCase):
         :return: None
         """
         self.membership = MembershipFactory()
-    @unittest.skip('Not implemented yet')
+        self.user = UserFactory()
+        self.user.save()
+        self.membership.user = self.user
     def test_membership_has_all_its_attributes(self):
         """
         Test membership has all its attributes
         :return: None
         """
+        self.membership.save()
         self.assertEqual(hasattr(self.membership, 'user'), True)
         self.assertEqual(hasattr(self.membership, 'roles'), True)
         self.assertEqual(hasattr(self.membership, 'added_by'), True)
