@@ -15,7 +15,6 @@ class OrganizationFactory(factory.Factory):
     class Meta:
         model = Organization
 
-    id = factory.Sequence(lambda n: n)
     name = factory.Sequence(lambda n: 'Organization {0}'.format(n))
     slug = factory.Sequence(lambda n: 'organization-{0}'.format(n))
     join_code = factory.LazyAttribute(lambda o: ''.join(faker.random_letters(length=6)).replace(' ', ''))

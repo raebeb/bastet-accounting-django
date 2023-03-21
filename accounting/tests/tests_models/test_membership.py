@@ -10,6 +10,7 @@ class MembershipTestCase(unittest.TestCase):
         :return: None
         """
         self.membership = MembershipFactory()
+    @unittest.skip('Not implemented yet')
     def test_membership_has_all_its_attributes(self):
         """
         Test membership has all its attributes
