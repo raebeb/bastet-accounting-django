@@ -12,13 +12,10 @@ class UserFactory(factory.Factory):
     class Meta:
         model = User
 
-
     username = factory.Sequence(lambda n: 'user{0}'.format(n))
     current_sign_in_ip = factory.LazyAttribute(lambda o: faker.ipv4())
     last_sign_in_ip = factory.LazyAttribute(lambda o: faker.ipv4())
-    current_organization = 1
-    created_at = faker.date_time()
-    updated_at = faker.date_time()
+    password = factory.PostGenerationMethodCall('set_password', 'password')
     @factory.post_generation
     def groups(self, create, extracted, **kwargs):
         if not create:

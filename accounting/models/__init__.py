@@ -3,7 +3,6 @@ from .characteristic import Characteristic
 from .company import Company
 from .company_contact import CompanyContact
 from .economic_activity import EconomicActivity
-from .role import Role
 from .membership import Membership
 from .organization import Organization
 from .purchase import Purchase

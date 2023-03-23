@@ -19,7 +19,7 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(hasattr(self.user, 'state'), True)
         self.assertEqual(hasattr(self.user, 'current_sign_in_ip'), True)
         self.assertEqual(hasattr(self.user, 'last_sign_in_ip'), True)
-        self.assertEqual(hasattr(self.user, 'current_organization'), True)
+        self.assertEqual(hasattr(self.user, 'current_membership'), True)
         self.assertEqual(hasattr(self.user, 'created_at'), True)
         self.assertEqual(hasattr(self.user, 'updated_at'), True)
 

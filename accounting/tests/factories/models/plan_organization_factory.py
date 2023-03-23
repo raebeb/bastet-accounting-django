@@ -16,9 +16,7 @@ class PlanOrganizationFactory(factory.Factory):
 
     plan = factory.SubFactory(PlanFactory)
     organization = factory.SubFactory(OrganizationFactory)
-    state = 'CREATED'
     start_date = faker.date_time()
     end_date = faker.date_time() + timedelta(days=30)
     price = factory.LazyAttribute(lambda o: faker.random_int(min=1, max=10))
-    created_at = faker.date_time()
-    updated_at = faker.date_time()
+
