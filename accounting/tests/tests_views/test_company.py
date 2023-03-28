@@ -5,7 +5,7 @@ from rest_framework.test import APITestCase
 from .test_utils import CustomAPITestCase
 from accounting.models import Company
 
-from pdb import set_trace as st
+
 class CompanyViewSetTest(CustomAPITestCase):
     def setUp(self):
       super().setUp()
