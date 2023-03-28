@@ -15,6 +15,7 @@ class CompanyViewSetTest(CustomAPITestCase):
         """
         Test that we can create a new Company object using the API
         """
+
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Company.objects.count(), 1)
