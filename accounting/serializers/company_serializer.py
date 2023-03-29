@@ -16,6 +16,9 @@ class CompanySerializer(serializers.ModelSerializer):
         }
         
     def create(self, validated_data):
-        validated_data['organization'] = self.context['organization']
+        current_membership = self.context['membership']
+        organization = current_membership.organization
+        validated_data['organization'] = organization
+        validated_data['membership'] = current_membership
         return Company.objects.create(**validated_data)
         
