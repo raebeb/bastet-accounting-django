@@ -6,7 +6,8 @@ from django.utils.text import camel_case_to_spaces
 
 class Transport:
     """
-    Transport is a wrapper around the requests library that provides a consistent interface for making requests to thrid party services.
+    Transport is a wrapper around the requests library that provides
+    a consistent interface for making requests to thrid party services.
     """
     BASE_HEADERS = {
         'Content-Type': 'application/json'
@@ -18,7 +19,7 @@ class Transport:
     @staticmethod
     def get(url: str, xheaders:dict=None, params:dict =None) -> dict[str, any]:
         """
-        This method prepare the data to make the get request
+        Prepare the data to make the get request
         :param url: url to make the request to
         :param xheaders: extra headers to add to the request
         :param params: params to add to the request
@@ -32,7 +33,7 @@ class Transport:
     @staticmethod
     def post(url: str, body:dict=None, payload:dict=None, xheaders:dict=None, params:dict=None) -> dict[str, any]:
         """
-        This method prepare the data to make the post request
+        Prepare the data to make the post request
         :param url: url to make the request to
         :param body: body to send with the request
         :param payload: payload to send with the request
@@ -45,7 +46,7 @@ class Transport:
     @staticmethod
     def put(url: str, body:dict=None, payload:dict=None, xheaders:dict=None, params:dict=None) -> dict[str, any]:
         """
-        This method prepare the data to make the put request
+        Prepare the data to make the put request
         :param url: url to make the request to
         :param body: body to send with the request
         :param payload: payload to send with the request
@@ -87,7 +88,7 @@ class Transport:
     @staticmethod
     def put_post(method: str, url: str, body:dict=None, payload:dict=None, xheaders:dict=None, params:dict=None):
         """
-        This method prepare the data to make the put or post request
+        Prepare the data to make the put or post request
         :param method: HTTP method to use (put or post)
         :param url: url to make the request to
         :param body: body to send with the request
@@ -121,7 +122,7 @@ class Transport:
     @staticmethod
     def process(response: dict[str, any]) -> dict[str, any]:
         """
-        this method process the response from the request and return a dictionary with the response in a more usable format.
+        Process the response from the request and return a dictionary with the response in a more usable format.
         :param response:
         :return: response in a more usable format
         """
@@ -135,7 +136,7 @@ class Transport:
     @staticmethod
     def code_response(response:dict, headers:dict) -> dict[str, any]:
         """
-        This method process the response from the request and return a dictionary with the response in a more usable format.
+        Process the response from the request and return a dictionary with the response in a more usable format.
         :param response: response from the request
         :param headers: headers from the request
         :return: dict with the response in a more usable format
@@ -148,13 +149,13 @@ class Transport:
             'url': response.url,
             'headers': headers,
             'cookies': headers.get('set_cookie', None),
-            'body': json.loads(response.text) if response_code < 300 else None
+            'body': response.json() if response_code < 300 else None
         }
 
     @staticmethod
     def parse_body(body:dict) -> dict[str, any]:
         """
-        This method parse the body of the request and return a dictionary with the body in a more usable format.
+        Parse the body of the request and return a dictionary with the body in a more usable format.
         :param body: body of the request
         :return: dict with the body in a more usable format
         """
@@ -163,7 +164,7 @@ class Transport:
     @staticmethod
     def log_coded_response(resp:dict) -> None:
         """
-        This method log the response from the request.
+        Log the response from the request.
         :param resp: response from the request
         :return: None
         """
